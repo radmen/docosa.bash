@@ -1,0 +1,34 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Runs given command on selected service.
+  Container will be removed once command has finished.
+
+  usage:
+    docosa run [SERVICE] [command]
+EOF
+}
+
+run_on_service () {
+  declare -r SERVICE="$1"
+  declare -r ARGS=${@:2}
+
+  docker-compose run --rm "$SERVICE" $ARGS
+}
+
+main () {
+
+  if [ $# -lt 2 ]; then
+    help
+    exit 1
+  fi
+
+  run_on_service "$@"
+}
+
+main "$@"
+

@@ -1,0 +1,30 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Prints bash config with service aliases.
+
+  Based on docker-compose script will export aliases for each service.
+
+  usage:
+    docoseal env
+EOF
+}
+
+main () {
+  for SERVICE in $(docker-compose config --services); do
+    alias .${SERVICE}="docoseal ${SERVICE}"
+  done
+}
+
+case ${1:-} in
+  -h|--help)
+    help
+    exit 0
+  ;;
+esac
+
+main "$@"

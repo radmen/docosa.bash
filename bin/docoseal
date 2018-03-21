@@ -8,23 +8,23 @@ help () {
   Runs selected command on given service.
 
   usage:
-    docoseal [command] [SERVICE] <options>
+    docoseal [SERVICE] [command] <options>
 
   commands:
     docoseal env                            dump bash env with service aliases
-    docoseal exec  [SERVICE]                runs command on running container
-    docoseal run   [SERVICE]                runs command on new service container
-    docoseal logs  [SERVICE]                displays logs from given service
-    docoseal purge [SERVICE]                wipes service container with its volumes
-    docoseal reset [SERVICE]                purges and re-creates service container
-    docoseal start [SERVICE]                starts selected service
-    docoseal stop  [SERVICE]                stops selected service
+    docoseal [SERVICE] exec                 runs command on running container
+    docoseal [SERVICE] run                  runs command on new service container
+    docoseal [SERVICE] logs                 displays logs from given service
+    docoseal [SERVICE] purge                wipes service container with its volumes
+    docoseal [SERVICE] reset                purges and re-creates service container
+    docoseal [SERVICE] start                starts selected service
+    docoseal [SERVICE] stop                 stops selected service
 EOF
 }
 
 run_command () {
-  declare -r COMMAND="$1"
-  declare -r SERVICE="${2:-}"
+  declare -r SERVICE="${1}"
+  declare -r COMMAND="${2:-}"
   declare -r ARGS=${@:3}
 
   docoseal-$COMMAND $SERVICE $ARGS
@@ -35,6 +35,11 @@ main () {
   if [ $# -lt 1 ]; then
     help
     exit 1
+  fi
+
+  if [ "$1" == "env" ]; then
+    docoseal-env "${@:2}"
+    exit 0
   fi
 
   run_command "$@"

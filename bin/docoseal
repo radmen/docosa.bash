@@ -1,0 +1,43 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Runs selected command on given service.
+
+  usage:
+    docoseal [command] [SERVICE] <options>
+
+  commands:
+    docoseal env                            dump bash env with service aliases
+    docoseal exec  [SERVICE]                runs command on running container
+    docoseal run   [SERVICE]                runs command on new service container
+    docoseal logs  [SERVICE]                displays logs from given service
+    docoseal purge [SERVICE]                wipes service container with its volumes
+    docoseal reset [SERVICE]                purges and re-creates service container
+    docoseal start [SERVICE]                starts selected service
+    docoseal stop  [SERVICE]                stops selected service
+EOF
+}
+
+run_command () {
+  declare -r COMMAND="$1"
+  declare -r SERVICE="${2:-}"
+  declare -r ARGS=${@:3}
+
+  docoseal-$COMMAND $SERVICE $ARGS
+}
+
+main () {
+
+  if [ $# -lt 1 ]; then
+    help
+    exit 1
+  fi
+
+  run_command "$@"
+}
+
+main "$@"

@@ -1,0 +1,34 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Stops, purges and starts again selected service.
+
+  usage:
+    docoseal reset [SERVICE]
+EOF
+}
+
+reset_service () {
+  declare -r SERVICE="$1"
+
+  docker-compose stop "$SERVICE"
+  docker-compose rm -v "$SERVICE"
+  docker-compose up -d "$SERVICE"
+}
+
+main () {
+
+  if [ $# -lt 1 ]; then
+    help
+    exit 1
+  fi
+
+  reset_service "$@"
+}
+
+main "$@"
+

@@ -9,7 +9,7 @@ help () {
   Container will be removed once command has finished.
 
   usage:
-    docosa run [SERVICE] [command]
+    docoseal run [SERVICE] [command]
 EOF
 }
 

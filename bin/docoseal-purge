@@ -8,7 +8,7 @@ help () {
   Purges selected service with its volumes.
 
   usage:
-    docosa purge [SERVICE]
+    docoseal purge [SERVICE]
 EOF
 }
 

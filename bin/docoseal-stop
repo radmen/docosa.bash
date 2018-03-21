@@ -1,0 +1,32 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Stops selected service.
+
+  usage:
+    docoseal stop [SERVICE]
+EOF
+}
+
+stop_service () {
+  declare -r SERVICE="$1"
+
+  docker-compose stop "$SERVICE"
+}
+
+main () {
+
+  if [ $# -lt 1 ]; then
+    help
+    exit 1
+  fi
+
+  stop_service "$@"
+}
+
+main "$@"
+

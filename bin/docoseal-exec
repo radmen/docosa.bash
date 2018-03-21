@@ -1,0 +1,33 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Runs given command on running container of given service.
+
+  usage:
+    docoseal exec [SERVICE] [command]
+EOF
+}
+
+exec_on_service () {
+  declare -r SERVICE="$1"
+  declare -r ARGS=${@:2}
+
+  docker-compose exec "$SERVICE" $ARGS
+}
+
+main () {
+
+  if [ $# -lt 2 ]; then
+    help
+    exit 1
+  fi
+
+  exec_on_service "$@"
+}
+
+main "$@"
+

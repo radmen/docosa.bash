@@ -1,0 +1,35 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Show logs of selected service.
+
+  Command supports options from 'docker-compose logs'
+
+  usage:
+    docoseal logs [SERVICE] <options>
+EOF
+}
+
+show_logs () {
+  declare -r SERVICE="$1"
+  declare -r ARGS=${@:2}
+
+  docker-compose logs $ARGS "$SERVICE"
+}
+
+main () {
+
+  if [ $# -lt 1 ]; then
+    help
+    exit 1
+  fi
+
+  show_logs "$@"
+}
+
+main "$@"
+

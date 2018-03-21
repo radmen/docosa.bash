@@ -1,0 +1,35 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Starts selected service.
+
+  Command supports options from 'docker-compose up'
+
+  usage:
+    docoseal start [SERVICE] <options>
+EOF
+}
+
+start_service () {
+  declare -r SERVICE="$1"
+  declare -r ARGS=${@:2}
+
+  docker-compose up $ARGS "$SERVICE"
+}
+
+main () {
+
+  if [ $# -lt 1 ]; then
+    help
+    exit 1
+  fi
+
+  start_service "$@"
+}
+
+main "$@"
+

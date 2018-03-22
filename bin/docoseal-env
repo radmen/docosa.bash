@@ -16,7 +16,8 @@ EOF
 
 main () {
   for SERVICE in $(docker-compose config --services); do
-    alias .${SERVICE}="docoseal ${SERVICE}"
+    echo ".${SERVICE} () { docoseal ${SERVICE} \$@; };"
+    echo "complete -F _docoseal_complete .${SERVICE};"
   done
 }
 

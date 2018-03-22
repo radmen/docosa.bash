@@ -16,7 +16,7 @@ EOF
 
 start_service () {
   declare -r SERVICE="$1"
-  declare -r ARGS=${@:2}
+  declare -r ARGS=${*:2}
 
   docker-compose up $ARGS "$SERVICE"
 }

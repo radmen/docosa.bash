@@ -14,7 +14,7 @@ EOF
 
 exec_on_service () {
   declare -r SERVICE="$1"
-  declare -r ARGS=${@:2}
+  declare -r ARGS=${*:2}
 
   docker-compose exec "$SERVICE" $ARGS
 }

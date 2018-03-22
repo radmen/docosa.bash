@@ -25,9 +25,9 @@ EOF
 run_command () {
   declare -r SERVICE="${1}"
   declare -r COMMAND="${2:-}"
-  declare -r ARGS=${@:3}
+  declare -r ARGS=${*:3}
 
-  docoseal-$COMMAND $SERVICE $ARGS
+  "docoseal-${COMMAND}" "$SERVICE" "$ARGS"
 }
 
 main () {

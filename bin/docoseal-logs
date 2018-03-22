@@ -16,9 +16,9 @@ EOF
 
 show_logs () {
   declare -r SERVICE="$1"
-  declare -r ARGS=${@:2}
+  declare -r ARGS=${*:2}
 
-  docker-compose logs $ARGS "$SERVICE"
+  docker-compose logs "$ARGS" $SERVICE
 }
 
 main () {

@@ -1,0 +1,10 @@
+install:
+  - scversion="stable"
+  - wget "https://storage.googleapis.com/shellcheck/shellcheck-$scversion.linux.x86_64.tar.xz"
+  - tar --xz -xvf "shellcheck-$scversion.linux.x86_64.tar.xz"
+  - shellcheck() { "shellcheck-$scversion/shellcheck" -s bash -e SC2086 "$@"; }
+  - shellcheck --version
+
+script:
+  - shellcheck ./init.sh
+  - shellcheck ./bin/*

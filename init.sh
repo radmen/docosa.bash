@@ -19,3 +19,5 @@ if test -d "${DIR}/bin"; then
 else
   echo "Couldn't locate binaries directory"
 fi
+
+alias .init="eval \$(docoseal env)"

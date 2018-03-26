@@ -1,0 +1,32 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -euo pipefail
+
+help () {
+  cat <<-EOF
+  Restarts selected service.
+
+  usage:
+    docoseal restart [SERVICE]
+EOF
+}
+
+restart_service () {
+  declare -r SERVICE="$1"
+
+  docker-compose restart "$SERVICE"
+}
+
+main () {
+
+  if [ $# -lt 1 ]; then
+    help
+    exit 1
+  fi
+
+  restart_service "$@"
+}
+
+main "$@"
+

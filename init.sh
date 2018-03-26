@@ -5,7 +5,7 @@ declare DIR
 
 _docoseal_complete () {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  local available_commands="env exec logs purge reset run start stop"
+  local available_commands="env exec logs purge reset run start stop restart"
 
   mapfile -t COMPREPLY < <(compgen -W "$available_commands" -- "$cur")
 }

@@ -18,7 +18,11 @@ show_logs () {
   declare -r SERVICE="$1"
   declare -r ARGS=${*:2}
 
-  docker-compose logs "$ARGS" $SERVICE
+  if [ "$ARGS" != "" ]; then
+    docker-compose logs "$ARGS" $SERVICE
+  else
+    docker-compose logs $SERVICE
+  fi
 }
 
 main () {

@@ -22,6 +22,16 @@ help () {
 EOF
 }
 
+command_exists () {
+  declare -r COMMAND="docoseal-${2:-}"
+
+  if command -v "$COMMAND" > /dev/null 2>&1; then
+    return 0
+  fi
+
+  return 1
+}
+
 run_command () {
   declare -r SERVICE="${1}"
   declare -r COMMAND="${2:-}"
@@ -42,7 +52,11 @@ main () {
     exit 0
   fi
 
-  run_command "$@"
+  if command_exists "$@"; then
+    run_command "$@"
+  else
+    docoseal-run "$@"
+  fi
 }
 
 main "$@"

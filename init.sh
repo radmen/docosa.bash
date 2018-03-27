@@ -17,7 +17,5 @@ DIR="$(dirname "${BASH_SOURCE[0]}")"
 if test -d "${DIR}/bin"; then
   export PATH="${PATH}:${DIR}/bin"
 else
-  echo "Couldn't locate binaries directory"
+  echo "Docoseal: couldn't locate binaries directory"
 fi
-
-alias .init="eval \$(docoseal env)"
